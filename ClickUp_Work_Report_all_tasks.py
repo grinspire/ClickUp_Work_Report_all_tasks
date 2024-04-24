@@ -1,3 +1,4 @@
+from flask import Flask, request, jsonify
 import requests
 import json
 import pandas as pd
@@ -6,6 +7,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from concurrent.futures import ThreadPoolExecutor
+
+app = Flask(__name__)
 
 api_key = "pk_67411195_OHENSAG9JM2PBQB2A2JWGH8VEJ5A1EOK"
 
@@ -57,6 +60,23 @@ def get_all_tasks_assigned_to_member(member_name):
 
   return all_tasks
 
-member_name = "Arunima"
-tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
-print(tasks_assigned_to_member)
+@app.route('/api', methods=['GET'])
+def get_welcome():
+  # Logic to retrieve and return users
+  return 'Welcome to visit api!'
+
+@app.route('/api/tasks/<member_name>', methods = ["POST"])  # Define an API route
+def get_tasks_by_member(member_name):
+  print(member_name)
+  """
+  This function retrieves tasks assigned to a member and returns them as JSON.
+  """
+  tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
+  return jsonify(tasks_assigned_to_member)
+
+if __name__ == '__main__':
+  app.run(debug=True)  # Run the Flask app in debug mode (optional)
+
+# member_name = "Arunima"
+# tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
+# print(tasks_assigned_to_member)
