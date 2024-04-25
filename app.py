@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 import requests
 
 app = Flask(__name__)
@@ -53,7 +53,7 @@ def get_all_tasks_assigned_to_member(member_name):
 
   return all_tasks
 
-@app.route('/api', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_welcome():
   # Logic to retrieve and return users
   return 'Welcome to visit api!'
