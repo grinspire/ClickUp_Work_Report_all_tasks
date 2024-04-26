@@ -67,8 +67,8 @@ def get_tasks_by_member(member_name):
   tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
   return jsonify(tasks_assigned_to_member)
 
-if __name__ == '__main__':
-  app.run(debug=True)  # Run the Flask app in debug mode (optional)
+# if __name__ == '__main__':
+#   app.run(debug=True)  # Run the Flask app in debug mode (optional)
 
 # member_name = "Arunima"
 # tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
