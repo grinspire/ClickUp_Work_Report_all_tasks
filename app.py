@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import requests
 
 app = Flask(__name__)
 
@@ -57,8 +58,20 @@ def get_welcome():
   # Logic to retrieve and return users
   return 'Welcome to visit api!'
 
-# @app.route('/api/tasks/<member_name>', methods = ["POST"])  # Define an API route
-# def get_tasks_by_member(member_name):
+@app.route('/api/tasks/<member_name>', methods = ["POST"])  # Define an API route
+def get_tasks_by_member(member_name):
+  team_url = "https://api.clickup.com/api/v2/team"
+  payload = {}
+  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': api_key
+  }
+
+  response = requests.request("GET", team_url, headers=headers, data=payload)
+
+  # Parse JSON
+  data = response.json()
+  return jsonify(data)
 #   print(member_name)
 #   """
 #   This function retrieves tasks assigned to a member and returns them as JSON.
@@ -66,8 +79,8 @@ def get_welcome():
 #   tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
 #   return jsonify(tasks_assigned_to_member)
 
-# if __name__ == '__main__':
-#   app.run(debug=True)  # Run the Flask app in debug mode (optional)
+if __name__ == '__main__':
+  app.run(debug=True)  # Run the Flask app in debug mode (optional)
 
 # member_name = "Arunima"
 # tasks_assigned_to_member = get_all_tasks_assigned_to_member(member_name)
